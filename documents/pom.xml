@@ -44,7 +44,7 @@
 		</repository>
 		<snapshotRepository>
 			<id>dev-nexus</id>
-			<url>http://localhost:8099/repository/maven-snapshots/</url>
+			<url>http://gitlab.local:8099/repository/maven-snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
 	<properties>
