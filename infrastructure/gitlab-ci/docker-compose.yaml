@@ -28,3 +28,10 @@ services:
     volumes:
       - '//var/run/docker.sock:/var/run/docker.sock'
       - './home/gitlab-runner:/etc/gitlab-runner:rw'
+
+  nexus:
+    image: sonatype/nexus3:3.71.0-alpine
+    ports:
+      - "8099:8081"
+    volumes:
+      - './nexus:/nexus-data:rw'
