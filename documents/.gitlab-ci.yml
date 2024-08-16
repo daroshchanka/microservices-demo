@@ -1,0 +1,31 @@
+image: eclipse-temurin:21.0.4_7-jdk
+stages:
+  - build
+  - test
+  - deploy
+
+.documents-common:
+  rules:
+    - changes:
+        - '../documents/*'
+
+documents-build-job:
+  extends: .documents-common
+  stage: build
+  script:
+    - echo "Building documents app"
+
+documents-test-job:
+  extends: .documents-common
+  stage: test
+  script:
+    - echo "Testing documents app"
+
+documents-deploy-job:
+  extends: .documents-common
+  stage: deploy
+  script:
+    - echo "Deploy documents app"
+    - './mvnw deploy -s ci_settings.xml -DskipTests'
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
