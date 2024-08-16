@@ -8,7 +8,11 @@ target/
 
 ### Project-specific ###
 app-template/
+documents/uploads/
 infrastructure/gitlab-ci/home/logs/
+infrastructure/gitlab-ci/home/data/
+infrastructure/gitlab-ci/home/config/
+infrastructure/documents/filestorage/
 
 ### STS ###
 .apt_generated
