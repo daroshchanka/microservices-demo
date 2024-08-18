@@ -30,6 +30,7 @@ documents-deploy-job:
   extends: .documents-common
   stage: deploy
   script:
+    - docker info
     - echo "Deploy documents app"
     - 'cd documents && ./mvnw deploy -s ci_settings.xml -DskipTests -X'
   rules:
