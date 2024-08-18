@@ -14,8 +14,6 @@ variables:
   rules:
     - changes:
         - '../documents/*'
-  before_script:
-    - docker info
 
 documents-build-job:
   extends: .documents-common
