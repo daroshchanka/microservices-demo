@@ -39,7 +39,7 @@
                 </executions>
                 <configuration>
                     <docker>
-                        <bindings>/var/run/docker.sock:/var/run/docker.sock</bindings>
+                        <bindings>//var/run/docker.sock:/var/run/docker.sock</bindings>
                     </docker>
                 </configuration>
             </plugin>
