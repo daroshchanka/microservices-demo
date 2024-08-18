@@ -4,6 +4,8 @@ stages:
   - deploy
 
 .documents-common:
+  tags:
+    - jdk-21
   rules:
     - changes:
         - '../documents/*'
@@ -11,8 +13,6 @@ stages:
 documents-build-job:
   extends: .documents-common
   stage: build
-  tags:
-    - jdk-21
   script:
     - echo "Building documents app"
 
