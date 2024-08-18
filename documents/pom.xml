@@ -149,11 +149,11 @@
 				<configuration>
 					<imageName>${module.image.name}:${project.version}</imageName>
 					<docker>
-						<builderRegistry>
+						<publishRegistry>
 							<username>deployment</username>
 							<password>1561dc49-dc73-4ede-9fb4-f2eab4efe539</password>
 							<url>${NEXUS_URL}/repository/docker/</url>
-						</builderRegistry>
+						</publishRegistry>
 					</docker>
 				</configuration>
 			</plugin>
