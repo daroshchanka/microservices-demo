@@ -4,7 +4,12 @@ stages:
   - test
   - deploy
 
+variables:
+  DOCKER_HOST: tcp://docker:2375
+
 .documents-common:
+  services:
+    - docker:dind
   rules:
     - changes:
         - '../documents/*'
