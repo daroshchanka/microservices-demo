@@ -17,11 +17,12 @@ shutdown_timeout = 0
   [runners.custom_build_dir]
   [runners.cache]
     MaxUploadedArchiveSize = 0
+    Insecure = false
     [runners.cache.s3]
     [runners.cache.gcs]
     [runners.cache.azure]
   [runners.docker]
-    helper_image = "registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:alpine3.19-x86_64-bleeding"
+    helper_image = "registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-v17.3.0"
     extra_hosts = ["gitlab.local:192.168.100.15"]
     tls_verify = false
     image = "maven:3.9.6-eclipse-temurin-21-jammy"
@@ -29,6 +30,6 @@ shutdown_timeout = 0
     disable_entrypoint_overwrite = false
     oom_kill_disable = false
     disable_cache = false
-    volumes = ["/cache", "/certs/client"]
+    volumes = ["/cache", "/certs/client", "/var/run/docker.sock:/var/run/docker.sock"]
     shm_size = 0
     network_mtu = 0

@@ -149,11 +149,16 @@
 					<image>
 						<name>${module.image.name}:${project.version}</name>
 						<verboseLogging>true</verboseLogging>
+<!--
 						<bindings>//var/run/docker.sock:/var/run/docker.sock</bindings>
+-->
 					</image>
-<!--					<docker>
-						<bindHostToBuilder>true</bindHostToBuilder>
-					</docker>-->
+					<docker>
+<!--
+						<host>tcp://192.168.99.100:2376</host>
+-->
+						<tlsVerify>false</tlsVerify>
+					</docker>
 				</configuration>
 			</plugin>
 		</plugins>

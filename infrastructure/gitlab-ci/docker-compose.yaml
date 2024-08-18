@@ -1,7 +1,7 @@
 version: '3.6'
 services:
   gitlab:
-    image: gitlab/gitlab-ce:latest
+    image: gitlab/gitlab-ce:17.3.0-ce.0
     container_name: gitlab
     restart: always
     hostname: 'gitlab.local'
@@ -9,6 +9,7 @@ services:
       GITLAB_OMNIBUS_CONFIG: |
         external_url 'http://gitlab.local:8929'
         gitlab_rails['gitlab_shell_ssh_port'] = 2424
+        gitlab_rails['initial_root_password'] = 'r5YzGA7+fEjs8kcTQdr8Er4o6ebURRwTf4kR3M7Lmn4='
     ports:
       - '8929:8929'
       - '443:443'
@@ -20,7 +21,7 @@ services:
     shm_size: '256m'
 
   gitlab-runner:
-    image: gitlab/gitlab-runner:alpine3.19-bleeding
+    image: gitlab/gitlab-runner:v17.3.0
     container_name: gitlab-runner
     depends_on:
       gitlab:
