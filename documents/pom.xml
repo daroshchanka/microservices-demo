@@ -34,21 +34,22 @@
 	<repositories>
 		<repository>
 			<id>dev-nexus</id>
-			<url>http://gitlab.local:8099/repository/maven-releases/</url>
+			<url>${NEXUS_URL}/repository/maven-releases/</url>
 		</repository>
 	</repositories>
 	<distributionManagement>
 		<repository>
 			<id>dev-nexus</id>
-			<url>http://gitlab.local:8099/repository/maven-releases/</url>
+			<url>${NEXUS_URL}/repository/maven-releases/</url>
 		</repository>
 		<snapshotRepository>
 			<id>dev-nexus</id>
-			<url>http://gitlab.local:8099/repository/maven-snapshots/</url>
+			<url>${NEXUS_URL}/repository/maven-snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
 	<properties>
 		<java.version>21</java.version>
+		<NEXUS_URL>http://gitlab.local:8099</NEXUS_URL>
 		<module.image.name>documents</module.image.name>
 		<spring-cloud-starter-loadbalancer.version>4.1.4</spring-cloud-starter-loadbalancer.version>
 		<spring-cloud-starter-openfeign.version>4.1.3</spring-cloud-starter-openfeign.version>
@@ -146,18 +147,13 @@
 					</execution>
 				</executions>
 				<configuration>
-					<image>
-						<name>${module.image.name}:${project.version}</name>
-						<verboseLogging>true</verboseLogging>
-<!--
-						<bindings>//var/run/docker.sock:/var/run/docker.sock</bindings>
--->
-					</image>
+					<imageName>${module.image.name}:${project.version}</imageName>
 					<docker>
-<!--
-						<host>tcp://192.168.99.100:2376</host>
--->
-						<tlsVerify>false</tlsVerify>
+						<builderRegistry>
+							<username>deployment</username>
+							<password>1561dc49-dc73-4ede-9fb4-f2eab4efe539</password>
+							<url>${NEXUS_URL}/repository/docker/</url>
+						</builderRegistry>
 					</docker>
 				</configuration>
 			</plugin>

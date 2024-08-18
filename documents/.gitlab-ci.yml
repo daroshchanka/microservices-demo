@@ -3,14 +3,7 @@ stages:
   - test
   - deploy
 
-variables:
-  #DOCKER_HOST: tcp://docker:2376
-  #DOCKER_TLS_CERTDIR: "/certs"
-
 .documents-common:
-  #image: docker:27.1.2
-  #services:
-  #  - docker:dind
   rules:
     - changes:
         - '../documents/*'
@@ -18,6 +11,8 @@ variables:
 documents-build-job:
   extends: .documents-common
   stage: build
+  tags:
+    - jdk-21
   script:
     - echo "Building documents app"
 
@@ -29,12 +24,9 @@ documents-test-job:
 
 documents-deploy-job:
   extends: .documents-common
-  #image: eclipse-temurin:21.0.4_7-jdk
   stage: deploy
   script:
     - echo "Deploy documents app"
-    #- docker info
-    #- 'cd documents && ./mvnw deploy -s ci_settings.xml -DskipTests -X'
-    - 'cd documents && mvn package -DskipTests -X'
+    - 'cd documents && ./mvnw deploy -s ci_settings.xml -DskipTests'
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH

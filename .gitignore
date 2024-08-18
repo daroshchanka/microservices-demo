@@ -12,6 +12,7 @@ documents/uploads/
 infrastructure/gitlab-ci/home/logs/
 infrastructure/gitlab-ci/home/data/
 infrastructure/gitlab-ci/home/config/
+infrastructure/gitlab-ci/nexus/
 infrastructure/documents/filestorage/
 
 ### STS ###
