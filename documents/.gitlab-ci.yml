@@ -1,18 +1,21 @@
-image: eclipse-temurin:21.0.4_7-jdk
 stages:
   - build
   - test
   - deploy
 
 variables:
-  DOCKER_HOST: tcp://docker:2375
+  #DOCKER_HOST: tcp://docker:2375
+  DOCKER_TLS_CERTDIR: "/certs"
 
 .documents-common:
+  image: docker:27.1.2
   services:
-    - docker:dind
+    - docker:27.1.2-dind
   rules:
     - changes:
         - '../documents/*'
+  before_script:
+    - docker info
 
 documents-build-job:
   extends: .documents-common
@@ -28,6 +31,7 @@ documents-test-job:
 
 documents-deploy-job:
   extends: .documents-common
+  image: eclipse-temurin:21.0.4_7-jdk
   stage: deploy
   script:
     - echo "Deploy documents app"
