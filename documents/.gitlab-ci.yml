@@ -5,7 +5,7 @@ stages:
   - deploy
 
 variables:
-  DOCKER_HOST: tcp://hubproxy.docker.internal:5555
+  DOCKER_HOST: tcp://hubproxy.docker.internal:2375
 
 .documents-common:
   services:
