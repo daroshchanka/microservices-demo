@@ -5,6 +5,8 @@ stages:
 
 top-level-job:
   stage: build
+  tags:
+    - jdk-21
   script:
     - echo "Hello world..."
 
