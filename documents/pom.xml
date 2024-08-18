@@ -146,7 +146,14 @@
 					</execution>
 				</executions>
 				<configuration>
-					<imageName>${module.image.name}:${project.version}</imageName>
+					<image>
+						<name>${module.image.name}:${project.version}</name>
+						<verboseLogging>true</verboseLogging>
+						<bindings>/var/run/docker.sock:/var/run/docker.sock</bindings>
+					</image>
+					<docker>
+						<bindHostToBuilder>true</bindHostToBuilder>
+					</docker>
 				</configuration>
 			</plugin>
 		</plugins>
