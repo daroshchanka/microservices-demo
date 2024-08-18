@@ -5,12 +5,12 @@ stages:
 
 variables:
   #DOCKER_HOST: tcp://docker:2376
-  DOCKER_TLS_CERTDIR: "/certs"
+  #DOCKER_TLS_CERTDIR: "/certs"
 
 .documents-common:
-  image: docker:27.1.2
-  services:
-    - docker:dind
+  #image: docker:27.1.2
+  #services:
+  #  - docker:dind
   rules:
     - changes:
         - '../documents/*'
