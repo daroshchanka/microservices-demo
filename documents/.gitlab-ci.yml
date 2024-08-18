@@ -4,13 +4,13 @@ stages:
   - deploy
 
 variables:
-  DOCKER_HOST: tcp://docker:2376
+  #DOCKER_HOST: tcp://docker:2376
   DOCKER_TLS_CERTDIR: "/certs"
 
 .documents-common:
   image: docker:27.1.2
   services:
-    - docker:27.1.2-dind
+    - docker:dind
   rules:
     - changes:
         - '../documents/*'
@@ -33,7 +33,7 @@ documents-deploy-job:
   stage: deploy
   script:
     - echo "Deploy documents app"
-    - docker info
+    #- docker info
     - 'cd documents && ./mvnw deploy -s ci_settings.xml -DskipTests -X'
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
