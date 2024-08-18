@@ -29,11 +29,12 @@ documents-test-job:
 
 documents-deploy-job:
   extends: .documents-common
-  image: eclipse-temurin:21.0.4_7-jdk
+  #image: eclipse-temurin:21.0.4_7-jdk
   stage: deploy
   script:
     - echo "Deploy documents app"
     #- docker info
-    - 'cd documents && ./mvnw deploy -s ci_settings.xml -DskipTests -X'
+    #- 'cd documents && ./mvnw deploy -s ci_settings.xml -DskipTests -X'
+    - 'cd documents && mvn package'
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
