@@ -5,6 +5,7 @@ variables:
     -Dorg.slf4j.simpleLogger.showDateTime=true
     -Djava.awt.headless=true
   MAVEN_CLI_OPTS: >-
+    -s .m2/settings.xml
     --batch-mode
     --errors
     --fail-at-end
@@ -12,7 +13,6 @@ variables:
     --no-transfer-progress
     -DinstallAtEnd=true
     -DdeployAtEnd=true
-  MVNW: 'cd documents && ./mvnw'
 
 cache:
   paths:
@@ -30,13 +30,13 @@ documents-test:
   stage: test
   script:
     - echo "Testing documents app"
-    - '$MVNW $MAVEN_CLI_OPTS test -s .m2/settings.xml -DskipTests -X'
+    - 'cd documents && ./mvnw test $MAVEN_CLI_OPTS -DskipTests $MAVEN_OPTS'
 
 documents-deploy:
   extends: .documents-common
   stage: deploy
   script:
     - echo "Deploy documents app"
-    - '$MVNW $MAVEN_CLI_OPTS deploy -s .m2/settings.xml -DskipTests -X'
+    - 'cd documents && ./mvnw deploy $MAVEN_CLI_OPTS -DskipTests $MAVEN_OPTS'
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
