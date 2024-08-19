@@ -148,8 +148,8 @@
 					</execution>
 				</executions>
 				<configuration>
-					<imageName>${module.image.name}:${project.version}</imageName>
 					<image>
+						<name>gitlab.local:18099/${module.image.name}:${project.version}</name>
 						<publish>true</publish>
 					</image>
 					<docker>
