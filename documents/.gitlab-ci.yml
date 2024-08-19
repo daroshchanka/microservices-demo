@@ -35,6 +35,6 @@ documents-deploy-job:
   stage: deploy
   script:
     - echo "Deploy documents app"
-    - 'cd documents && ./mvnw deploy -s ci_settings.xml -DskipTests'
+    - 'cd documents && ./mvnw deploy -s ci_settings.xml -DskipTests -X'
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
