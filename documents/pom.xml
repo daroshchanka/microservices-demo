@@ -144,6 +144,7 @@
 						<publishRegistry>
 							<username>${NEXUS_USERNAME}</username>
 							<password>${NEXUS_PASSWORD}</password>
+							<url>http://${NEXUS_HOST}:${NEXUS_DOCKER_PORT}</url>
 						</publishRegistry>
 					</docker>
 				</configuration>
