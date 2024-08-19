@@ -1,7 +1,9 @@
-stages:
-  - build
-  - test
-  - deploy
+variables:
+  NEXUS_HOST: 'gitlab.local'
+  NEXUS_DOCKER_PORT: 8100
+  NEXUS_M2_PORT: 8099
+  NEXUS_USERNAME: 'deployment'
+  NEXUS_PASSWORD: '1561dc49-dc73-4ede-9fb4-f2eab4efe539'
 
 top-level-job:
   stage: build

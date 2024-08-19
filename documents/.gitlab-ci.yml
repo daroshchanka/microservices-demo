@@ -1,15 +1,22 @@
-stages:
-  - build
-  - test
-  - deploy
+variables:
+  MAVEN_OPTS: >-
+    -Dhttps.protocols=TLSv1.2
+    -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository
+    -Dorg.slf4j.simpleLogger.showDateTime=true
+    -Djava.awt.headless=true
+  MAVEN_CLI_OPTS: >-
+    --batch-mode
+    --errors
+    --fail-at-end
+    --show-version
+    --no-transfer-progress
+    -DinstallAtEnd=true
+    -DdeployAtEnd=true
+  MVNW: 'cd documents && ./mvnw'
 
 cache:
   paths:
     - .m2/repository
-
-variables:
-  MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
-  MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version"
 
 .documents-common:
   tags:
@@ -18,23 +25,18 @@ variables:
     - changes:
         - '../documents/*'
 
-documents-build-job:
-  extends: .documents-common
-  stage: build
-  script:
-    - echo "Building documents app"
-
-documents-test-job:
+documents-test:
   extends: .documents-common
   stage: test
   script:
     - echo "Testing documents app"
+    - '$MVNW $MAVEN_CLI_OPTS test -s .m2/settings.xml -DskipTests -X'
 
-documents-deploy-job:
+documents-deploy:
   extends: .documents-common
   stage: deploy
   script:
     - echo "Deploy documents app"
-    - 'cd documents && ./mvnw deploy -s ci_settings.xml -DskipTests -X'
+    - '$MVNW $MAVEN_CLI_OPTS deploy -s .m2/settings.xml -DskipTests -X'
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
