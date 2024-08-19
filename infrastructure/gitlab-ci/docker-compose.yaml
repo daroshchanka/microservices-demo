@@ -34,5 +34,6 @@ services:
     image: sonatype/nexus3:3.71.0-alpine
     ports:
       - "8099:8081"
+      - "8100:8100"
     volumes:
       - './nexus:/nexus-data:rw'
