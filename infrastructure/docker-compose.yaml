@@ -10,8 +10,6 @@ services:
       - kafka
   app-image-generator:
     image: gitlab.local:8100/image-generator:0.0.1-SNAPSHOT
-    ports:
-      - "8082:8082"
     depends_on:
       - postgres
       - kafka
