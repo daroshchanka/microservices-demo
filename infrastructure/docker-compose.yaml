@@ -2,21 +2,21 @@ version: '3.1'
 
 services:
   app-image-generation-manager:
-    image: image-generation-manager:0.0.1-SNAPSHOT
+    image: gitlab.local:8100/image-generation-manager:0.0.1-SNAPSHOT
     ports:
       - "8081:8081"
     depends_on:
       - postgres
       - kafka
   app-image-generator:
-    image: image-generator:0.0.1-SNAPSHOT
+    image: gitlab.local:8100/image-generator:0.0.1-SNAPSHOT
     ports:
       - "8082:8082"
     depends_on:
       - postgres
       - kafka
   app-documents:
-    image: documents:0.0.1-SNAPSHOT
+    image: gitlab.local:8100/documents:0.0.1-SNAPSHOT
     hostname: documents
     ports:
       - "8083:8083"
@@ -56,7 +56,7 @@ services:
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
       KAFKA_NUM_PARTITIONS: 3
   kafka-ui:
-    image: provectuslabs/kafka-ui:latest
+    image: provectuslabs/kafka-ui:v0.7.2
     ports:
       - "8080:8080"
     restart: unless-stopped
