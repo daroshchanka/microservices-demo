@@ -141,7 +141,7 @@
 <!--
 						<builder>pack.local/builder/fnkdxtfemz:latest</builder>
 -->
-						<pullPolicy>IF_NOT_PRESENT</pullPolicy>
+						<pullPolicy>NEVER</pullPolicy>
 						<publish>true</publish>
 					</image>
 					<docker>
