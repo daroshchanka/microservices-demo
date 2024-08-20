@@ -49,6 +49,10 @@
 			<id>dev-nexus</id>
 			<url>http://${NEXUS_HOST}:${NEXUS_M2_PORT}/repository/maven-releases/</url>
 		</repository>
+		<repository>
+			<id>dev-nexus</id>
+			<url>http://${NEXUS_HOST}:${NEXUS_M2_PORT}/repository/maven-snapshots/</url>
+		</repository>
 	</repositories>
 	<distributionManagement>
 		<repository>
