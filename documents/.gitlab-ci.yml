@@ -12,7 +12,6 @@ variables:
     --no-transfer-progress
     -DinstallAtEnd=true
     -DdeployAtEnd=true
-    -X
 
 cache:
   paths:
@@ -31,6 +30,8 @@ documents-test:
   script:
     - echo "Testing documents app"
     - 'cd documents && ./mvnw test $MAVEN_CLI_OPTS -DskipTests $MAVEN_OPTS'
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
 documents-deploy:
   extends: .documents-common
