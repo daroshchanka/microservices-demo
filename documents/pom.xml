@@ -138,6 +138,10 @@
 				<configuration>
 					<image>
 						<name>${NEXUS_HOST}:${NEXUS_DOCKER_PORT}/${module.image.name}:${project.version}</name>
+<!--
+						<builder>pack.local/builder/fnkdxtfemz:latest</builder>
+-->
+						<pullPolicy>IF_NOT_PRESENT</pullPolicy>
 						<publish>true</publish>
 					</image>
 					<docker>
