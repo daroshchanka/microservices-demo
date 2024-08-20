@@ -112,16 +112,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<encoding>UTF-8</encoding>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
 				<executions>
 					<execution>
 						<goals>
@@ -130,7 +120,18 @@
 					</execution>
 				</executions>
 				<configuration>
-					<imageName>${module.image.name}:${project.version}</imageName>
+					<image>
+						<name>${NEXUS_HOST}:${NEXUS_DOCKER_PORT}/${module.image.name}:${project.version}</name>
+						<pullPolicy>NEVER</pullPolicy>
+						<publish>true</publish>
+					</image>
+					<docker>
+						<publishRegistry>
+							<username>${NEXUS_USERNAME}</username>
+							<password>${NEXUS_PASSWORD}</password>
+							<url>http://${NEXUS_HOST}:${NEXUS_DOCKER_PORT}</url>
+						</publishRegistry>
+					</docker>
 				</configuration>
 			</plugin>
 		</plugins>

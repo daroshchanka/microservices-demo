@@ -1,0 +1,43 @@
+variables:
+  MAVEN_OPTS: >-
+    -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository
+    -Dorg.slf4j.simpleLogger.showDateTime=true
+    -Djava.awt.headless=true
+  MAVEN_CLI_OPTS: >-
+    -s .m2/settings.xml
+    --batch-mode
+    --errors
+    --fail-at-end
+    --show-version
+    --no-transfer-progress
+    -DinstallAtEnd=true
+    -DdeployAtEnd=true
+
+cache:
+  paths:
+    - .m2/repository
+
+.image-generator-common:
+  tags:
+    - jdk-21
+  rules:
+    - changes:
+        - '../image-generator/*'
+
+image-generator-test:
+  extends: .image-generator-common
+  stage: test
+  script:
+    - echo "Testing image-generator app"
+    - 'cd image-generator && ./mvnw test $MAVEN_CLI_OPTS $MAVEN_OPTS'
+#  rules:
+#    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+image-generator-deploy:
+  extends: .image-generator-common
+  stage: deploy
+  script:
+    - echo "Deploy image-generator app"
+    - 'cd image-generator && ./mvnw deploy $MAVEN_CLI_OPTS -DskipTests $MAVEN_OPTS'
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
