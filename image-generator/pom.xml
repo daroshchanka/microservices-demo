@@ -102,11 +102,11 @@
 				<executions>
 					<execution>
 						<goals>
-							<goal>build-image</goal>
+							<goal>repackage</goal>
 						</goals>
 					</execution>
 				</executions>
-				<configuration>
+				<!--<configuration>
 					<image>
 						<name>${NEXUS_HOST}:${NEXUS_DOCKER_PORT}/${module.image.name}:${project.version}</name>
 						<pullPolicy>NEVER</pullPolicy>
@@ -119,7 +119,7 @@
 							<url>http://${NEXUS_HOST}:${NEXUS_DOCKER_PORT}</url>
 						</publishRegistry>
 					</docker>
-				</configuration>
+				</configuration>-->
 			</plugin>
 		</plugins>
 	</build>

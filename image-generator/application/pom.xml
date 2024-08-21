@@ -51,6 +51,27 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.45.0</version>
+                <configuration>
+                    <imagePullPolicy>IfNotPresent</imagePullPolicy>
+                    <authConfig>
+                        <username>${NEXUS_USERNAME}</username>
+                        <password>${NEXUS_PASSWORD}</password>
+                    </authConfig>
+                    <images>
+                        <image>
+                            <name>${NEXUS_HOST}:${NEXUS_DOCKER_PORT}/${module.image.name}:${project.version}</name>
+                            <alias>dockerfile</alias>
+                            <build>
+                                <contextDir>${project.basedir}</contextDir>
+                            </build>
+                        </image>
+                    </images>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
