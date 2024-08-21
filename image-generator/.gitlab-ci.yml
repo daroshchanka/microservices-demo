@@ -39,6 +39,6 @@ image-generator-deploy:
   script:
     - echo "Deploy image-generator app"
     - "cd image-generator && ./mvnw deploy -pl '!application' $MAVEN_CLI_OPTS -DskipTests $MAVEN_OPTS"
-    - "cd image-generator && ./mvnw install -pl 'application' docker:build docker:push $MAVEN_CLI_OPTS -DskipTests $MAVEN_OPTS"
+    - "./mvnw install -pl 'application' docker:build docker:push $MAVEN_CLI_OPTS -DskipTests $MAVEN_OPTS"
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
