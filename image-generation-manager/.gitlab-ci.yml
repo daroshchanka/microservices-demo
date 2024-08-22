@@ -30,8 +30,6 @@ image-generation-manager-test:
   script:
     - echo "Testing image-generation-manager app"
     - 'cd image-generation-manager && ./mvnw test $MAVEN_CLI_OPTS $MAVEN_OPTS'
-#  rules:
-#    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
 image-generation-manager-deploy:
   extends: .image-generation-manager-common
@@ -39,5 +37,3 @@ image-generation-manager-deploy:
   script:
     - echo "Deploy image-generation-manager app"
     - 'cd image-generation-manager && ./mvnw deploy $MAVEN_CLI_OPTS -DskipTests $MAVEN_OPTS'
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH

@@ -30,8 +30,6 @@ documents-test:
   script:
     - echo "Testing documents app"
     - 'cd documents && ./mvnw test $MAVEN_CLI_OPTS $MAVEN_OPTS'
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
 documents-deploy:
   extends: .documents-common
@@ -39,5 +37,3 @@ documents-deploy:
   script:
     - echo "Deploy documents app"
     - 'cd documents && ./mvnw deploy $MAVEN_CLI_OPTS -DskipTests $MAVEN_OPTS'
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
