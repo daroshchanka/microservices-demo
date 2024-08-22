@@ -106,20 +106,6 @@
 						</goals>
 					</execution>
 				</executions>
-				<!--<configuration>
-					<image>
-						<name>${NEXUS_HOST}:${NEXUS_DOCKER_PORT}/${module.image.name}:${project.version}</name>
-						<pullPolicy>NEVER</pullPolicy>
-						<publish>true</publish>
-					</image>
-					<docker>
-						<publishRegistry>
-							<username>${NEXUS_USERNAME}</username>
-							<password>${NEXUS_PASSWORD}</password>
-							<url>http://${NEXUS_HOST}:${NEXUS_DOCKER_PORT}</url>
-						</publishRegistry>
-					</docker>
-				</configuration>-->
 			</plugin>
 		</plugins>
 	</build>

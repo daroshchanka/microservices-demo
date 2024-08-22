@@ -4,16 +4,16 @@ import dmax.demo.documents.feign.DocumentsClient;
 import dmax.demo.documents.feign.JavaFileToMultipartFile;
 import dmax.demo.imagegenerationmanager.kafka.events.GenerateImageRequestEvent;
 import dmax.demo.imagegenerator.events.ImageGenerationFinishedEvent;
-import dmax.demo.imagegenerator.kafka.producers.ImageGenerationFinishedEventProducer;
 import dmax.demo.imagegenerator.kafka.KafkaTopicConfiguration;
+import dmax.demo.imagegenerator.kafka.producers.ImageGenerationFinishedEventProducer;
 import dmax.demo.imagegenerator.utils.TextToImageConverter;
 import jakarta.servlet.ServletContext;
+import lombok.Getter;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URI;
 import java.util.UUID;
@@ -23,6 +23,9 @@ public class GenerateImageRequestEventConsumer {
 
   @Autowired
   ServletContext context;
+
+  @Autowired
+  TextToImageConverter textToImageConverter;
 
   @Autowired
   private ImageGenerationFinishedEventProducer imageGenerationFinishedEventProducer;
@@ -38,16 +41,19 @@ public class GenerateImageRequestEventConsumer {
       topics = TOPIC, groupId = "image-generator"
   )
   public void handleEvent(ConsumerRecord<String, GenerateImageRequestEvent> event) {
-    System.out.println("Received GenerateImageRequestEvent Event: " + event);
-    UUID processId = event.value().getProcessId();
-    ImageGenerationFinishedEvent resultEvent = new ImageGenerationFinishedEvent(processId, null, null);
+    ImageGenerationFinishedEvent resultEvent = new ImageGenerationFinishedEvent(null, null, null);
     try {
+      System.out.println("Received GenerateImageRequestEvent Event: " + event.value());
+      UUID processId = event.value().getProcessId();
+      resultEvent.setProcessId(processId);
       UUID fileId = UUID.randomUUID();
-      TextToImageConverter.convert(event.value().getCommand(), fileId, context);
-      MultipartFile result = new JavaFileToMultipartFile(TextToImageConverter.getFile(fileId, context));
-      URI determinedBasePathUri = URI.create(documentsIntegrationUrl);
-      documentsClient.uploadFile(determinedBasePathUri, result, fileId.toString());
-      TextToImageConverter.cleanupTempFile(fileId, context);
+      documentsClient.uploadFile(
+          URI.create(documentsIntegrationUrl),
+          new JavaFileToMultipartFile(textToImageConverter.convert(event.value().getCommand(), fileId, context)),
+          fileId.toString()
+      );
+      textToImageConverter.cleanupTempFile(fileId, context);
+
       resultEvent.setFileId(fileId);
       resultEvent.setStatus(ImageGenerationFinishedEvent.Status.OK);
     } catch (Exception e) {

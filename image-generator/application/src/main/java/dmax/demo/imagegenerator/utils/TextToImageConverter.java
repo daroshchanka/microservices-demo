@@ -12,22 +12,22 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.UUID;
 
-public class TextToImageConverter {
+public interface TextToImageConverter {
 
-  public static void convert(GenerateImageRequestEvent.GenerateImageCommand command, UUID fileId, ServletContext context) throws IOException {
+  default File convert(GenerateImageRequestEvent.GenerateImageCommand command, UUID fileId, ServletContext context) throws IOException {
     Files.createDirectories(Paths.get(context.getRealPath("tmp")));
     File targetFile = getFile(fileId, context);
     System.out.println(targetFile.getAbsolutePath());
     convert(command.getImageText(), command.getFont(), command.getColor(), targetFile);
     new Font("Consolas", Font.BOLD, 36);
-    System.out.println("Done.");
+    return getFile(fileId, context);
   }
 
-  public static void cleanupTempFile(UUID fileId, ServletContext context) throws IOException {
+  default void cleanupTempFile(UUID fileId, ServletContext context) throws IOException {
     Files.delete(getFile(fileId, context).toPath());
   }
 
-  public static File getFile(UUID fileId, ServletContext context) {
+  private File getFile(UUID fileId, ServletContext context) {
     return new File(context.getRealPath("tmp"), fileId + ".png");
   }
 

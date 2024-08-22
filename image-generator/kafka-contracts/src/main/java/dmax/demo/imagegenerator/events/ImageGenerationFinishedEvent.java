@@ -1,7 +1,13 @@
 package dmax.demo.imagegenerator.events;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.UUID;
 
+@Setter
+@Getter
 public class ImageGenerationFinishedEvent {
 
   private UUID processId;
@@ -20,38 +26,6 @@ public class ImageGenerationFinishedEvent {
   public ImageGenerationFinishedEvent(UUID processId, Status status, String error) {
     this.processId = processId;
     this.status = status;
-    this.error = error;
-  }
-
-  public Status getStatus() {
-    return status;
-  }
-
-  public void setStatus(Status status) {
-    this.status = status;
-  }
-
-  public UUID getProcessId() {
-    return processId;
-  }
-
-  public void setProcessId(UUID processId) {
-    this.processId = processId;
-  }
-
-  public UUID getFileId() {
-    return fileId;
-  }
-
-  public void setFileId(UUID fileId) {
-    this.fileId = fileId;
-  }
-
-  public String getError() {
-    return error;
-  }
-
-  public void setError(String error) {
     this.error = error;
   }
 
