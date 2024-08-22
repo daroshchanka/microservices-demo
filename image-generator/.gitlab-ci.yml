@@ -20,9 +20,6 @@ cache:
 .image-generator-common:
   tags:
     - jdk-21
-  rules:
-    - changes:
-        - '../image-generator/*'
 
 image-generator-test:
   extends: .image-generator-common

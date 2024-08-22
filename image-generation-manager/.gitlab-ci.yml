@@ -20,9 +20,6 @@ cache:
 .image-generation-manager-common:
   tags:
     - jdk-21
-  rules:
-    - changes:
-        - '../image-generation-manager/*'
 
 image-generation-manager-test:
   extends: .image-generation-manager-common

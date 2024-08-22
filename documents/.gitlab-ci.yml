@@ -20,9 +20,6 @@ cache:
 .documents-common:
   tags:
     - jdk-21
-  rules:
-    - changes:
-        - '../documents/*'
 
 documents-test:
   extends: .documents-common

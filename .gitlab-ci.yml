@@ -14,5 +14,14 @@ top-level-job:
 
 include:
   - local: '/documents/.gitlab-ci.yml'
+    rules:
+      - changes:
+        - 'documents/*'
   - local: '/image-generator/.gitlab-ci.yml'
+    rules:
+      - changes:
+          - 'image-generator/*'
   - local: '/image-generation-manager/.gitlab-ci.yml'
+    rules:
+      - changes:
+          - 'image-generation-manager/*'
