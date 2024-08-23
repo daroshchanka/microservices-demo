@@ -1,3 +1,7 @@
+stages:
+  - build
+  - test
+
 variables:
   NEXUS_HOST: 'gitlab.local'
   NEXUS_DOCKER_PORT: 8100
