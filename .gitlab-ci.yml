@@ -1,7 +1,3 @@
-stages:
-  - build
-  - test
-
 variables:
   NEXUS_HOST: 'gitlab.local'
   NEXUS_DOCKER_PORT: 8100
@@ -20,12 +16,12 @@ include:
   - local: '/image-generation-manager/.gitlab-ci.yml'
     rules:
       - changes:
-          - 'image-generation-manager/*'
+          - 'image-generation-manager/**/*'
   - local: '/image-generator/.gitlab-ci.yml'
     rules:
       - changes:
-          - 'image-generator/*'
+          - 'image-generator/**/*'
   - local: '/documents/.gitlab-ci.yml'
     rules:
       - changes:
-          - 'documents/*'
+          - 'documents/**/*'
