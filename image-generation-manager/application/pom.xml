@@ -27,7 +27,25 @@
         <dependency>
             <groupId>dmax.demo.imagegenerator</groupId>
             <artifactId>kafka-contracts</artifactId>
-            <version>${project.parent.version}</version>
+            <version>${integration.imagegenerator.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>2.3.232</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka-test</artifactId>
+            <version>3.1.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.datafaker</groupId>
+            <artifactId>datafaker</artifactId>
+            <version>2.3.1</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

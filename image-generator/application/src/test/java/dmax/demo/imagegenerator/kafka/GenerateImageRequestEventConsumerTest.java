@@ -144,17 +144,10 @@ public class GenerateImageRequestEventConsumerTest {
   }
 
   private GenerateImageRequestEvent.GenerateImageCommand provideTestCommand() {
-    GenerateImageRequestEvent.GenerateImageCommand generateImageCommand
-        = new GenerateImageRequestEvent.GenerateImageCommand(Strings.join(new Faker().lorem().words(7), " "));
-    GenerateImageRequestEvent.Font font = new GenerateImageRequestEvent.Font();
-    font.setName("test");
-    font.setSize(10);
-    generateImageCommand.setFont(font);
-    GenerateImageRequestEvent.Color color = new GenerateImageRequestEvent.Color();
-    color.setR(100);
-    color.setG(100);
-    color.setB(100);
-    generateImageCommand.setColor(color);
-    return generateImageCommand;
+    return new GenerateImageRequestEvent.GenerateImageCommand(
+        Strings.join(new Faker().lorem().words(50), "\n"),
+        new GenerateImageRequestEvent.Font("Monospaced", 30),
+        new GenerateImageRequestEvent.Color(21, 234, 99)
+    );
   }
 }

@@ -33,16 +33,11 @@ class TextToImageConverterImplTest {
   @Test
   void convertTest() {
     GenerateImageRequestEvent.GenerateImageCommand generateImageCommand
-        = new GenerateImageRequestEvent.GenerateImageCommand(Strings.join(new Faker().lorem().words(50), "\n"));
-    GenerateImageRequestEvent.Font font = new GenerateImageRequestEvent.Font();
-    font.setName("Monospaced");
-    font.setSize(30);
-    generateImageCommand.setFont(font);
-    GenerateImageRequestEvent.Color color = new GenerateImageRequestEvent.Color();
-    color.setR(21);
-    color.setG(234);
-    color.setB(99);
-    generateImageCommand.setColor(color);
+        = new GenerateImageRequestEvent.GenerateImageCommand(
+        Strings.join(new Faker().lorem().words(50), "\n"),
+        new GenerateImageRequestEvent.Font("Monospaced", 30),
+        new GenerateImageRequestEvent.Color(21, 234, 99)
+    );
 
     fileId = UUID.randomUUID();
     result = textToImageConverter.convert(generateImageCommand, fileId, servletContext);

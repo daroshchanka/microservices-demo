@@ -13,15 +13,15 @@ top-level-job:
     - echo "Hello world..."
 
 include:
-  - local: '/documents/.gitlab-ci.yml'
-    rules:
-      - changes:
-        - 'documents/*'
-  - local: '/image-generator/.gitlab-ci.yml'
-    rules:
-      - changes:
-          - 'image-generator/*'
   - local: '/image-generation-manager/.gitlab-ci.yml'
     rules:
       - changes:
           - 'image-generation-manager/*'
+  - local: '/image-generator/.gitlab-ci.yml'
+    rules:
+      - changes:
+          - 'image-generator/*'
+  - local: '/documents/.gitlab-ci.yml'
+    rules:
+      - changes:
+          - 'documents/*'
