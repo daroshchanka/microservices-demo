@@ -13,6 +13,7 @@ infrastructure/gitlab-ci/home/logs/
 infrastructure/gitlab-ci/home/data/
 infrastructure/gitlab-ci/home/config/
 infrastructure/gitlab-ci/nexus/
+infrastructure/gitlab-ci/sonarqube/
 infrastructure/documents/filestorage/
 
 ### STS ###

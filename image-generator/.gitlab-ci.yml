@@ -33,12 +33,12 @@ image-generator-test:
       - .sonar/cache
   script:
     - echo "Testing image-generator app"
-    - 'cd image-generator && ./mvnw test sonar:sonar -Dsonar.login=$SONAR_LOGIN -Dsonar.host.url=$SONAR_HOST_URL $MAVEN_CLI_OPTS $MAVEN_OPTS'
+    - 'cd image-generator && ./mvnw test sonar:sonar -Dsonar.login=${SONAR_LOGIN} -Dsonar.host.url=${SONAR_HOST_URL} ${MAVEN_CLI_OPTS} ${MAVEN_OPTS}'
 
 image-generator-deploy:
   extends: .image-generator-common
   stage: deploy
   script:
     - echo "Deploy image-generator app"
-    - "cd image-generator && ./mvnw deploy -pl '!application' -DskipTests $MAVEN_CLI_OPTS $MAVEN_OPTS"
-    - "./mvnw install -pl 'application' docker:build docker:push -DskipTests $MAVEN_CLI_OPTS $MAVEN_OPTS"
+    - "cd image-generator && ./mvnw deploy -pl '!application' -DskipTests ${MAVEN_CLI_OPTS} ${MAVEN_OPTS}"
+    - "./mvnw install -pl 'application' docker:build docker:push -DskipTests ${MAVEN_CLI_OPTS} ${MAVEN_OPTS}"

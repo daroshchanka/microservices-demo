@@ -26,11 +26,11 @@ documents-test:
   stage: test
   script:
     - echo "Testing documents app"
-    - 'cd documents && ./mvnw test sonar:sonar -Dsonar.login=$SONAR_LOGIN -Dsonar.host.url=$SONAR_HOST_URL $MAVEN_CLI_OPTS $MAVEN_OPTS'
+    - 'cd documents && ./mvnw test sonar:sonar -Dsonar.login=${SONAR_LOGIN} -Dsonar.host.url=${SONAR_HOST_URL} ${MAVEN_CLI_OPTS} ${MAVEN_OPTS}'
 
 documents-deploy:
   extends: .documents-common
   stage: deploy
   script:
     - echo "Deploy documents app"
-    - 'cd documents && ./mvnw deploy $MAVEN_CLI_OPTS -DskipTests $MAVEN_OPTS'
+    - 'cd documents && ./mvnw deploy ${MAVEN_CLI_OPTS} -DskipTests ${MAVEN_OPTS}'

@@ -68,11 +68,3 @@ services:
     volumes:
       - './sonarqube/postgresql:/var/lib/postgresql'
       - './sonarqube/postgresql/data:/var/lib/postgresql/data'
-
-volumes:
-  sonarqube_data:
-  sonarqube_temp:
-  sonarqube_extensions:
-  sonarqube_logs:
-  postgresql:
-  postgresql_data:
