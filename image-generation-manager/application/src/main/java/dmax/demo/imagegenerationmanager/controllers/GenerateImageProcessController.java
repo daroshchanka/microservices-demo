@@ -4,7 +4,7 @@ import dmax.demo.imagegenerationmanager.kafka.events.GenerateImageRequestEvent;
 import dmax.demo.imagegenerationmanager.kafka.producers.GenerateImageRequestEventProducer;
 import dmax.demo.imagegenerationmanager.models.GenerateImageCommand;
 import dmax.demo.imagegenerationmanager.models.GenerateImageProcess;
-import dmax.demo.imagegenerationmanager.repositories.GenerateImageProcessRepository;
+import dmax.demo.imagegenerationmanager.services.GenerateImageProcessService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -19,7 +19,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -30,7 +29,7 @@ import java.util.UUID;
 public class GenerateImageProcessController {
 
   @Autowired
-  GenerateImageProcessRepository generateImageProcessRepository;
+  GenerateImageProcessService generateImageProcessService;
 
   @Autowired
   private GenerateImageRequestEventProducer generateImageRequestEventProducer;
@@ -51,12 +50,7 @@ public class GenerateImageProcessController {
       @Parameter(name = "status", in = ParameterIn.QUERY) @RequestParam(required = false, name = "status") GenerateImageProcess.Status status
   ) {
     try {
-      List<GenerateImageProcess> processes = new ArrayList<>();
-      if (status == null) {
-        processes.addAll(generateImageProcessRepository.findAll());
-      } else {
-        processes.addAll(generateImageProcessRepository.findByStatus(status));
-      }
+      List<GenerateImageProcess> processes = generateImageProcessService.getListByStatus(status);
       return new ResponseEntity<>(processes, HttpStatus.OK);
     } catch (Exception e) {
       return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -65,8 +59,7 @@ public class GenerateImageProcessController {
 
   @GetMapping("/processes/{processId}")
   public ResponseEntity<GenerateImageProcess> getGenerateImageProcessById(@PathVariable("processId") UUID processId) {
-    Optional<GenerateImageProcess> processData = generateImageProcessRepository.findByProcessId(processId);
-
+    Optional<GenerateImageProcess> processData = generateImageProcessService.getByProcessId(processId);
     return processData
         .map(generateImageProcess -> new ResponseEntity<>(generateImageProcess, HttpStatus.OK))
         .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -75,24 +68,22 @@ public class GenerateImageProcessController {
   @PostMapping("/action/generate")
   public ResponseEntity<GenerateImageProcess> createGenerateImageProcess(@RequestBody GenerateImageCommand command) {
     try {
-      GenerateImageProcess entity = new GenerateImageProcess(command);
-      GenerateImageProcess process = generateImageProcessRepository.save(entity);
-
       GenerateImageRequestEvent.GenerateImageCommand eventCommand =
-          new GenerateImageRequestEvent.GenerateImageCommand();
-      eventCommand.setImageText(entity.getDetails().getImageText());
-      GenerateImageRequestEvent.Font eventCommandFont = new GenerateImageRequestEvent.Font();
-      eventCommandFont.setName(entity.getDetails().getFont().getName());
-      eventCommandFont.setSize(entity.getDetails().getFont().getSize());
-      eventCommand.setFont(eventCommandFont);
-      GenerateImageRequestEvent.Color eventCommandColor = new GenerateImageRequestEvent.Color();
-      eventCommandColor.setR(entity.getDetails().getColor().getR());
-      eventCommandColor.setG(entity.getDetails().getColor().getG());
-      eventCommandColor.setB(entity.getDetails().getColor().getB());
-      eventCommand.setColor(eventCommandColor);
-
+          new GenerateImageRequestEvent.GenerateImageCommand(
+              command.getImageText(),
+              new GenerateImageRequestEvent.Font(
+                  command.getFont().getName(),
+                  command.getFont().getSize()
+              ),
+              new GenerateImageRequestEvent.Color(
+                  command.getColor().getR(),
+                  command.getColor().getG(),
+                  command.getColor().getB()
+              )
+          );
+      GenerateImageProcess process = generateImageProcessService.saveProcess(new GenerateImageProcess(command));
       generateImageRequestEventProducer.sendEvent(
-          new GenerateImageRequestEvent(entity.getProcessId(), eventCommand)
+          new GenerateImageRequestEvent(process.getProcessId(), eventCommand)
       );
       return new ResponseEntity<>(process, HttpStatus.CREATED);
     } catch (Exception e) {

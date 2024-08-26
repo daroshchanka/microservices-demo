@@ -39,7 +39,8 @@ public class OpenApiConfig {
 
     Info info = new Info()
         .title("Image Generation Manager API")
-        .version("1.0")
+        //.version("1.0")
+        .contact(contact)
         .contact(contact)
         .description("This API exposes endpoints to manage image generation.")
         .termsOfService("https://localhost:8081")

@@ -1,7 +1,7 @@
 package dmax.demo.imagegenerationmanager.controllers;
 
 import dmax.demo.imagegenerationmanager.models.GenerationResult;
-import dmax.demo.imagegenerationmanager.repositories.GenerationResultRepository;
+import dmax.demo.imagegenerationmanager.services.GenerationResultService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -16,7 +16,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -27,7 +26,7 @@ import java.util.UUID;
 public class GenerationResultController {
 
   @Autowired
-  GenerationResultRepository generationResultRepository;
+  GenerationResultService generationResultService;
 
   @Operation(
       summary = "Retrieve Results",
@@ -45,13 +44,7 @@ public class GenerationResultController {
       @Parameter(name = "processId", in = ParameterIn.QUERY) @RequestParam(required = false, name = "processId") UUID processId
   ) {
     try {
-      List<GenerationResult> results = new ArrayList<>();
-      if (processId == null) {
-        results.addAll(generationResultRepository.findAll());
-      } else {
-        results.addAll(generationResultRepository.findByRelatedProcessId(processId));
-      }
-      return new ResponseEntity<>(results, HttpStatus.OK);
+      return new ResponseEntity<>(generationResultService.getList(processId), HttpStatus.OK);
     } catch (Exception e) {
       return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -59,7 +52,7 @@ public class GenerationResultController {
 
   @GetMapping("/generation-results/{id}")
   public ResponseEntity<GenerationResult> getGenerationResultById(@PathVariable("id") UUID id) {
-    Optional<GenerationResult> resultData = generationResultRepository.findById(id);
+    Optional<GenerationResult> resultData = generationResultService.getById(id);
     return resultData
         .map(result -> new ResponseEntity<>(result, HttpStatus.OK))
         .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
