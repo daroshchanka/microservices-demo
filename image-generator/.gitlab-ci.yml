@@ -32,7 +32,7 @@ image-generator-sonarqube-check:
     paths:
       - .sonar/cache
   script:
-    - "cd image-generator && ./mvnw sonar:sonar -pl 'application' -Dsonar.projectKey=microservices-demo $MAVEN_CLI_OPTS $MAVEN_OPTS -Dsonar.token=sqp_28e7966d7a7b4b39ea2f8bc44d9bbab61a3acccd -Dsonar.host.url=http://gitlab.local:9000"
+    - "cd image-generator && ./mvnw sonar:sonar -Dsonar.includedModules=application -Dsonar.projectKey=microservices-demo $MAVEN_CLI_OPTS $MAVEN_OPTS -Dsonar.token=sqp_28e7966d7a7b4b39ea2f8bc44d9bbab61a3acccd -Dsonar.host.url=http://gitlab.local:9000"
   allow_failure: true
 
 image-generator-test:
