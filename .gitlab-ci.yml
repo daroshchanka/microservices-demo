@@ -4,6 +4,8 @@ variables:
   NEXUS_M2_PORT: 8099
   NEXUS_USERNAME: 'deployment'
   NEXUS_PASSWORD: '1561dc49-dc73-4ede-9fb4-f2eab4efe539'
+  SONAR_HOST_URL: 'http://gitlab.local:9000'
+  SONAR_LOGIN: 'sqp_28e7966d7a7b4b39ea2f8bc44d9bbab61a3acccd'
 
 top-level-job:
   stage: build

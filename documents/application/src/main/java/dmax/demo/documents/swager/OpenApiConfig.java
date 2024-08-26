@@ -39,10 +39,10 @@ public class OpenApiConfig {
 
     Info info = new Info()
         .title("Image Generation Manager API")
-        .version("1.0")
+        //.version("1.0")
         .contact(contact)
         .description("This API exposes endpoints to manage image generation.")
-        .termsOfService("https://localhost:8081")
+        .termsOfService("https://localhost:8083")
         .license(mitLicense);
 
     return new OpenAPI().info(info).servers(List.of(devServer, prodServer));

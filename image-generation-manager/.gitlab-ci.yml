@@ -24,13 +24,20 @@ cache:
 image-generation-manager-test:
   extends: .image-generation-manager-common
   stage: test
+  variables:
+    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
+    GIT_DEPTH: "0"
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .sonar/cache
   script:
     - echo "Testing image-generation-manager app"
-    - 'cd image-generation-manager && ./mvnw test $MAVEN_CLI_OPTS $MAVEN_OPTS'
+    - 'cd image-generation-manager && ./mvnw test sonar:sonar -Dsonar.login=$SONAR_LOGIN -Dsonar.host.url=$SONAR_HOST_URL $MAVEN_CLI_OPTS $MAVEN_OPTS'
 
 image-generation-manager-deploy:
   extends: .image-generation-manager-common
   stage: deploy
   script:
     - echo "Deploy image-generation-manager app"
-    - 'cd image-generation-manager && ./mvnw deploy $MAVEN_CLI_OPTS -DskipTests $MAVEN_OPTS'
+    - 'cd image-generation-manager && ./mvnw deploy -DskipTests $MAVEN_CLI_OPTS $MAVEN_OPTS'

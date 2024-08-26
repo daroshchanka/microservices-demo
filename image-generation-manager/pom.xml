@@ -41,6 +41,9 @@
 		<springdoc-openapi-ui.version>1.8.0</springdoc-openapi-ui.version>
 		<commons-io.version>2.16.1</commons-io.version>
 		<lombok.version>1.18.34</lombok.version>
+		<sonar.projectKey>${project.name}</sonar.projectKey>
+		<sonar.test.exclusions>**/test/**/*.*</sonar.test.exclusions>
+		<sonar.exclusions>**/*.xml,kafka-contracts/**/*.*</sonar.exclusions>
 		<integration.imagegenerator.version>0.0.1-SNAPSHOT</integration.imagegenerator.version>
 	</properties>
 	<repositories>
@@ -126,6 +129,11 @@
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>4.0.0.4121</version>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
