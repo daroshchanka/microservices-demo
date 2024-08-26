@@ -5,7 +5,7 @@ variables:
   NEXUS_USERNAME: 'deployment'
   NEXUS_PASSWORD: '1561dc49-dc73-4ede-9fb4-f2eab4efe539'
   SONAR_HOST_URL: 'http://gitlab.local:9000'
-  SONAR_LOGIN: 'sqp_28e7966d7a7b4b39ea2f8bc44d9bbab61a3acccd'
+  SONAR_LOGIN: 'sqa_80eb1d4113017707a888a80d3cd531861d10f81a'
 
 top-level-job:
   stage: build
