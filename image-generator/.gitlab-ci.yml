@@ -21,9 +21,9 @@ cache:
   tags:
     - jdk-21
 
-image-generator-sonarqube-check:
+image-generator-test:
   extends: .image-generator-common
-  stage: build
+  stage: test
   variables:
     SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
     GIT_DEPTH: "0"
@@ -32,15 +32,8 @@ image-generator-sonarqube-check:
     paths:
       - .sonar/cache
   script:
-    - "cd image-generator && ./mvnw compile sonar:sonar -Dsonar.projectKey=microservices-demo $MAVEN_CLI_OPTS $MAVEN_OPTS -Dsonar.login=sqp_28e7966d7a7b4b39ea2f8bc44d9bbab61a3acccd -Dsonar.host.url=http://gitlab.local:9000"
-  allow_failure: true
-
-image-generator-test:
-  extends: .image-generator-common
-  stage: test
-  script:
     - echo "Testing image-generator app"
-    - 'cd image-generator && ./mvnw test $MAVEN_CLI_OPTS $MAVEN_OPTS'
+    - 'cd image-generator && ./mvnw test sonar:sonar -Dsonar.projectKey=microservices-demo $MAVEN_CLI_OPTS $MAVEN_OPTS -Dsonar.login=sqp_28e7966d7a7b4b39ea2f8bc44d9bbab61a3acccd -Dsonar.host.url=http://gitlab.local:9000'
 
 image-generator-deploy:
   extends: .image-generator-common
