@@ -8,17 +8,16 @@ import dmax.demo.imagegenerator.kafka.KafkaTopicConfiguration;
 import dmax.demo.imagegenerator.kafka.producers.ImageGenerationFinishedEventProducer;
 import dmax.demo.imagegenerator.utils.TextToImageConverter;
 import jakarta.servlet.ServletContext;
-import lombok.Getter;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.net.URI;
 import java.util.UUID;
 
-@Service
+@Component
 public class GenerateImageRequestEventConsumer {
 
   @Autowired

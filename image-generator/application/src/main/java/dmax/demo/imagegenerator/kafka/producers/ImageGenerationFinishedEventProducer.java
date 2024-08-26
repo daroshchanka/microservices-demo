@@ -4,9 +4,9 @@ import dmax.demo.imagegenerator.events.ImageGenerationFinishedEvent;
 import dmax.demo.imagegenerator.kafka.KafkaTopicConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
 public class ImageGenerationFinishedEventProducer {
 
   private static final String TOPIC = KafkaTopicConfiguration.IMAGE_GENERATOR_MANAGER_IMAGE_GENERATOR_EVENTS_TOPIC;
