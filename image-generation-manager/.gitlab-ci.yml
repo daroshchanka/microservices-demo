@@ -33,7 +33,7 @@ image-generation-manager-test:
       - .sonar/cache
   script:
     - echo "Testing image-generation-manager app"
-    - 'cd image-generation-manager && ./mvnw test sonar:sonar -Dsonar.login=${SONAR_LOGIN} -Dsonar.host.url=${SONAR_HOST_URL} ${MAVEN_CLI_OPTS} ${MAVEN_OPTS}'
+    - 'cd image-generation-manager && ./mvnw test sonar:sonar -Dsonar.login=${SONAR_LOGIN} -Dsonar.host.url=${SONAR_HOST_URL} ${MAVEN_CLI_OPTS} ${MAVEN_OPTS} -X'
 
 image-generation-manager-deploy:
   extends: .image-generation-manager-common
