@@ -6,6 +6,19 @@ variables:
   NEXUS_PASSWORD: '1561dc49-dc73-4ede-9fb4-f2eab4efe539'
   SONAR_HOST_URL: 'http://gitlab.local:9000'
   SONAR_LOGIN: 'sqa_80eb1d4113017707a888a80d3cd531861d10f81a'
+  MAVEN_OPTS: >-
+    -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository
+    -Dorg.slf4j.simpleLogger.showDateTime=true
+    -Djava.awt.headless=true
+  MAVEN_CLI_OPTS: >-
+    -s .m2/settings.xml
+    --batch-mode
+    --errors
+    --fail-at-end
+    --show-version
+    --no-transfer-progress
+    -DinstallAtEnd=true
+    -DdeployAtEnd=true
 
 top-level-job:
   stage: build

@@ -1,18 +1,3 @@
-variables:
-  MAVEN_OPTS: >-
-    -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository
-    -Dorg.slf4j.simpleLogger.showDateTime=true
-    -Djava.awt.headless=true
-  MAVEN_CLI_OPTS: >-
-    -s .m2/settings.xml
-    --batch-mode
-    --errors
-    --fail-at-end
-    --show-version
-    --no-transfer-progress
-    -DinstallAtEnd=true
-    -DdeployAtEnd=true
-
 cache:
   paths:
     - .m2/repository
@@ -33,12 +18,12 @@ image-generator-test:
       - .sonar/cache
   script:
     - echo "Testing image-generator app"
-    - 'cd image-generator && ./mvnw test sonar:sonar -Dsonar.login=${SONAR_LOGIN} -Dsonar.host.url=${SONAR_HOST_URL} ${MAVEN_CLI_OPTS} ${MAVEN_OPTS}'
+    - 'cd image-generator && ./mvnw test sonar:sonar -Dsonar.login=$SONAR_LOGIN -Dsonar.host.url=$SONAR_HOST_URL $MAVEN_CLI_OPTS $MAVEN_OPTS'
 
 image-generator-deploy:
   extends: .image-generator-common
   stage: deploy
   script:
     - echo "Deploy image-generator app"
-    - "cd image-generator && ./mvnw deploy -pl '!application' -DskipTests ${MAVEN_CLI_OPTS} ${MAVEN_OPTS}"
-    - "./mvnw install -pl 'application' docker:build docker:push -DskipTests ${MAVEN_CLI_OPTS} ${MAVEN_OPTS}"
+    - "cd image-generator && ./mvnw deploy -pl '!application' -DskipTests $MAVEN_CLI_OPTS $MAVEN_OPTS"
+    - "./mvnw install -pl 'application' docker:build docker:push -DskipTests $MAVEN_CLI_OPTS $MAVEN_OPTS"
