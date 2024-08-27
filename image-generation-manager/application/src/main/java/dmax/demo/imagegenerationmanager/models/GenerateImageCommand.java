@@ -1,5 +1,6 @@
 package dmax.demo.imagegenerationmanager.models;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ import lombok.ToString;
 @Table
 public class GenerateImageCommand {
 
+  @Schema(hidden = true)
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private long id;
@@ -28,6 +30,8 @@ public class GenerateImageCommand {
   @Setter
   @Entity
   public static class Font {
+
+    @Schema(hidden = true)
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -40,6 +44,8 @@ public class GenerateImageCommand {
   @Setter
   @Entity
   public static class Color {
+
+    @Schema(hidden = true)
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
