@@ -2,6 +2,8 @@ package dmax.demo.imagegenerator.utils;
 
 import dmax.demo.imagegenerationmanager.kafka.events.GenerateImageRequestEvent;
 import jakarta.servlet.ServletContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -14,10 +16,17 @@ import java.util.UUID;
 
 public interface TextToImageConverter {
 
+  private static Logger logger() {
+    final class LogHolder {
+      private static final Logger LOGGER = LoggerFactory.getLogger(TextToImageConverter.class);
+    }
+    return LogHolder.LOGGER;
+  }
+
   default File convert(GenerateImageRequestEvent.GenerateImageCommand command, UUID fileId, ServletContext context) throws IOException {
     Files.createDirectories(Paths.get(context.getRealPath("tmp")));
     File targetFile = getFile(fileId, context);
-    System.out.println(targetFile.getAbsolutePath());
+    logger().debug(targetFile.getAbsolutePath());
     convert(command.getImageText(), command.getFont(), command.getColor(), targetFile);
     new Font("Consolas", Font.BOLD, 36);
     return getFile(fileId, context);
@@ -32,7 +41,7 @@ public interface TextToImageConverter {
   }
 
   private static void convert(String text, GenerateImageRequestEvent.Font font, GenerateImageRequestEvent.Color color, File targetFile) throws IOException {
-    String[] textArray = text.split("[\n]");
+    String[] textArray = text.split("\n");
     BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
     Graphics2D g2d = img.createGraphics();
     Font fontAwt = new Font(font.getName(), Font.BOLD, font.getSize());
@@ -64,7 +73,7 @@ public interface TextToImageConverter {
   }
 
   private static int getLineCount(String text) {
-    return text.split("[\n]").length;
+    return text.split("\n").length;
   }
 
   private static String getLongestLine(String[] arr) {

@@ -5,8 +5,14 @@ cache:
 .documents-common:
   tags:
     - jdk-21
+  rules:
+    - &rule_changes
+      changes:
+        - 'documents/**/*'
 
 documents-test:
+  rules:
+    - *rule_changes
   extends: .documents-common
   stage: test
   variables:
@@ -21,6 +27,9 @@ documents-test:
     - 'cd documents && ./mvnw test sonar:sonar -Dsonar.login=$SONAR_LOGIN -Dsonar.host.url=$SONAR_HOST_URL $MAVEN_CLI_OPTS $MAVEN_OPTS'
 
 documents-deploy:
+  rules:
+    - *rule_changes
+    - if: "$CI_MERGE_REQUEST_IID"
   extends: .documents-common
   stage: deploy
   script:

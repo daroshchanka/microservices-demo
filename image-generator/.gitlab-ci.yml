@@ -5,8 +5,14 @@ cache:
 .image-generator-common:
   tags:
     - jdk-21
+  rules:
+    - &rule_changes
+      changes:
+        - 'image-generator/**/*'
 
 image-generator-test:
+  rules:
+    - *rule_changes
   extends: .image-generator-common
   stage: test
   variables:
@@ -21,6 +27,9 @@ image-generator-test:
     - 'cd image-generator && ./mvnw test sonar:sonar -Dsonar.login=$SONAR_LOGIN -Dsonar.host.url=$SONAR_HOST_URL $MAVEN_CLI_OPTS $MAVEN_OPTS'
 
 image-generator-deploy:
+  rules:
+    - *rule_changes
+    - if: "$CI_MERGE_REQUEST_IID"
   extends: .image-generator-common
   stage: deploy
   script:

@@ -8,6 +8,7 @@ import dmax.demo.imagegenerator.kafka.KafkaTopicConfiguration;
 import dmax.demo.imagegenerator.kafka.producers.ImageGenerationFinishedEventProducer;
 import dmax.demo.imagegenerator.utils.TextToImageConverter;
 import jakarta.servlet.ServletContext;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Component;
 import java.net.URI;
 import java.util.UUID;
 
+@Slf4j
 @Component
 public class GenerateImageRequestEventConsumer {
 
@@ -42,7 +44,7 @@ public class GenerateImageRequestEventConsumer {
   public void handleEvent(ConsumerRecord<String, GenerateImageRequestEvent> event) {
     ImageGenerationFinishedEvent resultEvent = new ImageGenerationFinishedEvent(null, null, null);
     try {
-      System.out.println("Received GenerateImageRequestEvent Event: " + event.value());
+      log.info("Received GenerateImageRequestEvent Event: {}", event.value());
       UUID processId = event.value().getProcessId();
       resultEvent.setProcessId(processId);
       UUID fileId = UUID.randomUUID();
@@ -58,10 +60,8 @@ public class GenerateImageRequestEventConsumer {
     } catch (Exception e) {
       resultEvent.setStatus(ImageGenerationFinishedEvent.Status.FAILED);
       String errorMessage = e.getMessage();
-      if (errorMessage != null) {
-        if (errorMessage.length() > 255) {
-          errorMessage = errorMessage.substring(0, 250) + "...";
-        }
+      if (errorMessage != null && errorMessage.length() > 255) {
+        errorMessage = errorMessage.substring(0, 250) + "...";
       }
       resultEvent.setError(errorMessage);
     }
