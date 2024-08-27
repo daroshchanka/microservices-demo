@@ -25,4 +25,4 @@ documents-deploy:
   stage: deploy
   script:
     - echo "Deploy documents app"
-    - 'cd documents && ./mvnw deploy $MAVEN_CLI_OPTS -DskipTests $MAVEN_OPTS'
+    - 'cd documents && ./mvnw deploy -DskipTests $MAVEN_CLI_OPTS $MAVEN_OPTS'
