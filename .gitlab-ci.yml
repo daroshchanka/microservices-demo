@@ -1,10 +1,10 @@
 variables:
-  NEXUS_HOST: 'gitlab.local'
+  NEXUS_HOST: 'dev-cluster'
   NEXUS_DOCKER_PORT: 8100
   NEXUS_M2_PORT: 8099
   NEXUS_USERNAME: 'deployment'
   NEXUS_PASSWORD: '1561dc49-dc73-4ede-9fb4-f2eab4efe539'
-  SONAR_HOST_URL: 'http://gitlab.local:9000'
+  SONAR_HOST_URL: 'http://dev-cluster:9000'
   SONAR_LOGIN: 'sqa_80eb1d4113017707a888a80d3cd531861d10f81a'
   MAVEN_OPTS: >-
     -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository

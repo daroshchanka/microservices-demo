@@ -17,23 +17,15 @@ public class OpenApiConfig {
   @Value("${dmax.openapi.dev-url}")
   private String devUrl;
 
-  @Value("${dmax.openapi.prod-url}")
-  private String prodUrl;
-
   @Bean
   public OpenAPI myOpenAPI() {
     Server devServer = new Server();
     devServer.setUrl(devUrl);
     devServer.setDescription("Server URL in Development environment");
 
-    Server prodServer = new Server();
-    prodServer.setUrl(prodUrl);
-    prodServer.setDescription("Server URL in Production environment");
-
     Contact contact = new Contact();
     contact.setEmail("daroshachanka@gmail.com");
     contact.setName("dmax");
-    contact.setUrl("https://localhost:8083");
 
     License mitLicense = new License().name("MIT License").url("https://choosealicense.com/licenses/mit/");
 
@@ -42,9 +34,8 @@ public class OpenApiConfig {
         //.version("1.0")
         .contact(contact)
         .description("This API exposes endpoints to manage image generation.")
-        .termsOfService("https://localhost:8083")
         .license(mitLicense);
 
-    return new OpenAPI().info(info).servers(List.of(devServer, prodServer));
+    return new OpenAPI().info(info).servers(List.of(devServer));
   }
 }
