@@ -1,20 +1,10 @@
-HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-!**/gitlab-ci/home/config/
-!**/gitlab-ci/home/data/
 
 ### Project-specific ###
 app-template/
-documents/uploads/
-infrastructure/gitlab-ci/home/logs/
-infrastructure/gitlab-ci/home/data/
-infrastructure/gitlab-ci/home/config/
-infrastructure/gitlab-ci/nexus/
-infrastructure/gitlab-ci/sonarqube/
-infrastructure/documents/filestorage/
 
 infrastructure/envs/dev/apps/documents/filestorage/
 infrastructure/envs/ci/gitlab/master/logs/

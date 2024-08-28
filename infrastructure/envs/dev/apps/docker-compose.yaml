@@ -16,8 +16,11 @@ services:
       DATASOURCE_PASSWORD: ${DATASOURCE_PASSWORD}
       KAFKA_SERVER_HOST: ${KAFKA_SERVER_HOST}
       KAFKA_SERVER_PORT: ${KAFKA_SERVER_PORT}
+      LOKI_HOST: ${LOKI_HOST}
   app-image-generator:
     image: dev-cluster:8100/image-generator:0.0.1-SNAPSHOT
+    ports:
+      - "8082:8082"
     networks:
       - apps-network
     environment:
@@ -26,6 +29,7 @@ services:
       KAFKA_SERVER_PORT: ${KAFKA_SERVER_PORT}
       INTEGRATION_DOCUMENTS_SERVER_HOST: documents
       INTEGRATION_DOCUMENTS_SERVER_PORT: 8083
+      LOKI_HOST: ${LOKI_HOST}
   app-documents:
     image: dev-cluster:8100/documents:0.0.1-SNAPSHOT
     hostname: documents
@@ -42,6 +46,7 @@ services:
       DATASOURCE_PORT: ${DATASOURCE_PORT}
       DATASOURCE_USERNAME: ${DATASOURCE_USERNAME}
       DATASOURCE_PASSWORD: ${DATASOURCE_PASSWORD}
+      LOKI_HOST: ${LOKI_HOST}
 
 networks:
   apps-network:

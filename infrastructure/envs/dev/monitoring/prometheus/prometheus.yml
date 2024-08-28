@@ -1,0 +1,20 @@
+global:
+  scrape_interval: 2s
+  evaluation_interval: 2s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['prometheus:9090']
+  - job_name: 'image-generation-manager'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['dev-cluster:8081']
+  - job_name: 'image-generator'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['dev-cluster:8082']
+  - job_name: 'documents'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['dev-cluster:8083']
