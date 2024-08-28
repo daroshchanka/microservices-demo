@@ -17,6 +17,7 @@ services:
       KAFKA_SERVER_HOST: ${KAFKA_SERVER_HOST}
       KAFKA_SERVER_PORT: ${KAFKA_SERVER_PORT}
       LOKI_HOST: ${LOKI_HOST}
+      TEMPO_ZIPKIN_ENDPOINT: ${TEMPO_ZIPKIN_ENDPOINT}
   app-image-generator:
     image: dev-cluster:8100/image-generator:0.0.1-SNAPSHOT
     ports:
@@ -30,6 +31,7 @@ services:
       INTEGRATION_DOCUMENTS_SERVER_HOST: documents
       INTEGRATION_DOCUMENTS_SERVER_PORT: 8083
       LOKI_HOST: ${LOKI_HOST}
+      TEMPO_ZIPKIN_ENDPOINT: ${TEMPO_ZIPKIN_ENDPOINT}
   app-documents:
     image: dev-cluster:8100/documents:0.0.1-SNAPSHOT
     hostname: documents
@@ -47,6 +49,7 @@ services:
       DATASOURCE_USERNAME: ${DATASOURCE_USERNAME}
       DATASOURCE_PASSWORD: ${DATASOURCE_PASSWORD}
       LOKI_HOST: ${LOKI_HOST}
+      TEMPO_ZIPKIN_ENDPOINT: ${TEMPO_ZIPKIN_ENDPOINT}
 
 networks:
   apps-network:

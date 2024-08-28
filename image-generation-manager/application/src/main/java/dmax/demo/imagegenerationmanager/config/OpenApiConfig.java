@@ -1,4 +1,4 @@
-package dmax.demo.documents.swager;
+package dmax.demo.imagegenerationmanager.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
@@ -32,6 +32,7 @@ public class OpenApiConfig {
     Info info = new Info()
         .title("Image Generation Manager API")
         //.version("1.0")
+        .contact(contact)
         .contact(contact)
         .description("This API exposes endpoints to manage image generation.")
         .license(mitLicense);
