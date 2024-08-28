@@ -13,18 +13,6 @@ services:
       DYNAMIC_CONFIG_ENABLED: true
       LOGGING_LEVEL_ROOT: 'DEBUG'
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: ${KAFKA_SERVER_HOST}:${KAFKA_SERVER_PORT}
-  mysql:
-    image: mysql:9.0
-    container_name: mysqldb
-    ports:
-      - "3316:3306"
-    networks:
-      - monitoring-network
-    volumes:
-      - './mysql/mysql-data:/var/lib/mysql'
-      - './mysql/init.sql:/docker-entrypoint-initdb.d/init.sql'
-    environment:
-      MYSQL_ROOT_PASSWORD: mysql
 
   tempo:
     image: grafana/tempo:2.5.0
@@ -70,9 +58,6 @@ services:
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
       - GF_AUTH_DISABLE_LOGIN_FORM=true
-      
-volumes:
-  mysql-data:
 
 networks:
   monitoring-network:
