@@ -2,10 +2,12 @@ package dmax.demo.imagegenerator.kafka.producers;
 
 import dmax.demo.imagegenerator.events.ImageGenerationFinishedEvent;
 import dmax.demo.imagegenerator.kafka.KafkaTopicConfiguration;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 public class ImageGenerationFinishedEventProducer {
 
@@ -15,6 +17,7 @@ public class ImageGenerationFinishedEventProducer {
   private KafkaTemplate<String, ImageGenerationFinishedEvent> kafkaTemplate;
 
   public void sendEvent(ImageGenerationFinishedEvent event) {
+    log.info("Received ImageGenerationFinishedEvent Event: {}", event);
     kafkaTemplate.send(TOPIC, event);
   }
 }
