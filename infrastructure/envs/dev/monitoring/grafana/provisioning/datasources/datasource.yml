@@ -8,6 +8,9 @@ datasources:
     editable: false
     jsonData:
       httpMethod: POST
+      prometheusType: Prometheus
+      prometheusVersion: 2.54.1
+      incrementalQueryOverlapWindow: 10m
       exemplarTraceIdDestinations:
         - name: trace_id
           datasourceUid: tempo

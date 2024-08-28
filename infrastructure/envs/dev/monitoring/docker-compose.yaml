@@ -50,7 +50,7 @@ services:
     image: grafana/grafana:11.2.0
     volumes:
       - './grafana/provisioning/datasources:/etc/grafana/provisioning/datasources:ro'
-      - './grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards:ro'
+      - './grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards'
       - './grafana/dashboards:/var/lib/grafana/dashboards'
     ports:
       - "3000:3000"
