@@ -43,6 +43,7 @@
 		<lombok.version>1.18.34</lombok.version>
 		<loki-logback-appender.version>1.5.2</loki-logback-appender.version>
 		<datasource-micrometer-spring-boot.version>1.0.5</datasource-micrometer-spring-boot.version>
+		<logbook-spring-boot-starter.version>3.9.0</logbook-spring-boot-starter.version>
 		<sonar.projectKey>${project.name}</sonar.projectKey>
 		<sonar.test.exclusions>**/test/**/*.*</sonar.test.exclusions>
 		<sonar.exclusions>**/*.xml,kafka-contracts/**/*.*</sonar.exclusions>
@@ -152,6 +153,11 @@
 			<groupId>net.ttddyy.observation</groupId>
 			<artifactId>datasource-micrometer-spring-boot</artifactId>
 			<version>${datasource-micrometer-spring-boot.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.zalando</groupId>
+			<artifactId>logbook-spring-boot-starter</artifactId>
+			<version>${logbook-spring-boot-starter.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
