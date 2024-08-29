@@ -7,6 +7,7 @@ import dmax.demo.imagegenerator.events.ImageGenerationFinishedEvent;
 import dmax.demo.imagegenerator.kafka.KafkaTopicConfiguration;
 import dmax.demo.imagegenerator.kafka.producers.ImageGenerationFinishedEventProducer;
 import dmax.demo.imagegenerator.utils.TextToImageConverter;
+import io.micrometer.observation.annotation.Observed;
 import jakarta.servlet.ServletContext;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Component;
 import java.net.URI;
 import java.util.UUID;
 
+@Observed
 @Slf4j
 @Component
 public class GenerateImageRequestEventConsumer {

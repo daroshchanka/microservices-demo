@@ -2,11 +2,13 @@ package dmax.demo.imagegenerator.kafka.producers;
 
 import dmax.demo.imagegenerator.events.ImageGenerationFinishedEvent;
 import dmax.demo.imagegenerator.kafka.KafkaTopicConfiguration;
+import io.micrometer.observation.annotation.Observed;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
+@Observed
 @Slf4j
 @Component
 public class ImageGenerationFinishedEventProducer {

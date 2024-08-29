@@ -1,5 +1,6 @@
 package dmax.demo.documents.services;
 
+import io.micrometer.observation.annotation.Observed;
 import jakarta.validation.constraints.NotNull;
 import lombok.SneakyThrows;
 import org.apache.commons.io.FileUtils;
@@ -14,6 +15,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
 
+@Observed
 @Service
 public class FileStorageService {
 

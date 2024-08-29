@@ -2,6 +2,7 @@ package dmax.demo.imagegenerationmanager.services;
 
 import dmax.demo.imagegenerationmanager.models.GenerationResult;
 import dmax.demo.imagegenerationmanager.repositories.GenerationResultRepository;
+import io.micrometer.observation.annotation.Observed;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Observed
 @Service
 public class GenerationResultService {
 
