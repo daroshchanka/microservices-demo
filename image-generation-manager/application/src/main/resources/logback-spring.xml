@@ -13,7 +13,15 @@
                 <pattern>application=${appName},host=${HOSTNAME},level=%level</pattern>
             </label>
             <message>
-                <pattern>${FILE_LOG_PATTERN}</pattern>
+                <pattern>
+                    {
+                    "level":"%level",
+                    "class":"%logger{36}",
+                    "thread":"%thread",
+                    "message": "%message",
+                    "requestId": "%X{X-Request-ID}"
+                    }
+                </pattern>
             </message>
             <sortByTime>true</sortByTime>
         </format>
