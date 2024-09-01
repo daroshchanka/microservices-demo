@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 public class KafkaTopicConfiguration {
 
   public static final String IMAGE_GENERATOR_GENERATION_REQUESTS_EVENTS_TOPIC = "image-generator.generation-requests";
-  public static final String IMAGE_GENERATOR_MANAGER_IMAGE_GENERATOR_EVENTS_TOPIC = "image-generator-manager.image-generator-events";
+  public static final String IMAGE_GENERATOR_MANAGER_IMAGE_GENERATOR_EVENTS_TOPIC = "image-generation-manager.image-generator-events";
 
   @Bean
   public NewTopic topic1() {
