@@ -28,6 +28,6 @@ top-level-job:
     - echo "Hello world..."
 
 include:
-  - local: '/image-generation-manager/.gitlab-ci.yml'
-  - local: '/image-generator/.gitlab-ci.yml'
   - local: '/generated-files-storage/.gitlab-ci.yml'
+  - local: '/image-generator/.gitlab-ci.yml'
+  - local: '/image-generation-manager/.gitlab-ci.yml'
