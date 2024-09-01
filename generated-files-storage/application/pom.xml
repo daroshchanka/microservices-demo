@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>dmax.demo.imagegenerator</groupId>
+        <groupId>dmax.demo.generatedfilesstorage</groupId>
         <artifactId>parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
@@ -20,44 +20,19 @@
 
     <dependencies>
         <dependency>
-            <groupId>dmax.demo.imagegenerator</groupId>
-            <artifactId>kafka-contracts</artifactId>
+            <groupId>dmax.demo.generatedfilesstorage</groupId>
+            <artifactId>rest-contracts</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
-            <groupId>dmax.demo.imagegenerationmanager</groupId>
-            <artifactId>kafka-contracts</artifactId>
-            <version>${integration.imagegenerationmanager.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>dmax.demo.generatedfilesstorage</groupId>
-            <artifactId>rest-contracts</artifactId>
-            <version>${integration.generatedfilesstorage.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.kafka</groupId>
-            <artifactId>spring-kafka-test</artifactId>
-            <version>3.1.1</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.datafaker</groupId>
-            <artifactId>datafaker</artifactId>
-            <version>2.3.1</version>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>2.3.232</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
 
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.jacoco</groupId>
-                    <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>0.8.12</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -111,28 +86,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>io.fabric8</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>0.45.0</version>
-                <configuration>
-                    <imagePullPolicy>IfNotPresent</imagePullPolicy>
-                    <authConfig>
-                        <username>${NEXUS_USERNAME}</username>
-                        <password>${NEXUS_PASSWORD}</password>
-                    </authConfig>
-                    <images>
-                        <image>
-                            <name>${NEXUS_HOST}:${NEXUS_DOCKER_PORT}/${module.image.name}:${project.version}</name>
-                            <alias>dockerfile</alias>
-                            <build>
-                                <contextDir>${project.basedir}</contextDir>
-                            </build>
-                        </image>
-                    </images>
-                </configuration>
-            </plugin>
-
         </plugins>
     </build>
 

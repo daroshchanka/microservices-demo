@@ -23,7 +23,7 @@ public class ImageGenerationFinishedEventConsumer {
 
   private static final String TOPIC = KafkaTopicConfiguration.IMAGE_GENERATOR_MANAGER_IMAGE_GENERATOR_EVENTS_TOPIC;
 
-  @KafkaListener(topics = TOPIC, groupId = "image-generator-manager")
+  @KafkaListener(topics = TOPIC, groupId = "image-generation-manager")
   public void handleEvent(ImageGenerationFinishedEvent event) throws Exception {
     log.info("Received {} Event: {}", ImageGenerationFinishedEvent.class.getName(), event);
     generateImageProcessService.updateStatusAndError(event.getProcessId(), mapStatus(event.getStatus()), event.getError());

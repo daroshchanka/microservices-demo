@@ -28,19 +28,19 @@ services:
       APP_PORT: 8082
       KAFKA_SERVER_HOST: ${KAFKA_SERVER_HOST}
       KAFKA_SERVER_PORT: ${KAFKA_SERVER_PORT}
-      INTEGRATION_DOCUMENTS_SERVER_HOST: documents
-      INTEGRATION_DOCUMENTS_SERVER_PORT: 8083
+      INTEGRATION_GENERATED_FILES_STORAGE_SERVER_HOST: documents
+      INTEGRATION_GENERATED_FILES_STORAGE_SERVER_PORT: 8083
       LOKI_HOST: ${LOKI_HOST}
       TEMPO_ZIPKIN_ENDPOINT: ${TEMPO_ZIPKIN_ENDPOINT}
-  app-documents:
-    image: dev-cluster:8100/documents:0.0.1-SNAPSHOT
-    hostname: documents
+  app-generated-files-storage:
+    image: dev-cluster:8100/generated-files-storage:0.0.1-SNAPSHOT
+    hostname: generated-files-storage
     ports:
       - "8083:8083"
     networks:
       - apps-network
     volumes:
-      - './documents/filestorage:/workspace/uploads:rw'
+      - './generated-files-storage/filestorage:/workspace/uploads:rw'
     environment:
       APP_HOST: dev-cluster
       APP_PORT: 8083

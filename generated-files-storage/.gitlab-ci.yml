@@ -1,0 +1,37 @@
+cache:
+  paths:
+    - .m2/repository
+
+.generated-files-storage-common:
+  tags:
+    - jdk-21
+  rules:
+    - &rule_changes
+      changes:
+        - 'generated-files-storage/**/*'
+
+generated-files-storage-test:
+  rules:
+    - *rule_changes
+  extends: .generated-files-storage-common
+  stage: test
+  variables:
+    SONAR_USER_HOME: "${CI_PROJECT_DIR}/generated-files-storage/.sonar"
+    GIT_DEPTH: "0"
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .sonar/cache
+  script:
+    - echo "Testing generated-files-storage app"
+    - 'cd generated-files-storage && ./mvnw test sonar:sonar -Dsonar.login=$SONAR_LOGIN -Dsonar.host.url=$SONAR_HOST_URL $MAVEN_CLI_OPTS $MAVEN_OPTS'
+
+generated-files-storage-deploy:
+  rules:
+    - *rule_changes
+    - if: "$CI_MERGE_REQUEST_IID"
+  extends: .generated-files-storage-common
+  stage: deploy
+  script:
+    - echo "Deploy generated-files-storage app"
+    - 'cd generated-files-storage && ./mvnw deploy -DskipTests $MAVEN_CLI_OPTS $MAVEN_OPTS'

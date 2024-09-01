@@ -1,6 +1,6 @@
 package dmax.demo.imagegenerator;
 
-import dmax.demo.documents.feign.DocumentsClient;
+import dmax.demo.generatedfilesstorage.feign.GeneratedFilesStorageClient;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
-@EnableFeignClients(clients = DocumentsClient.class)
+@EnableFeignClients(clients = GeneratedFilesStorageClient.class)
 @SpringBootApplication
 public class ImageGeneratorApplication {
 

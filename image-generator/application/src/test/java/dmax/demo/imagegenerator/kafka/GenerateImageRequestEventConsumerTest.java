@@ -1,7 +1,7 @@
 package dmax.demo.imagegenerator.kafka;
 
-import dmax.demo.documents.feign.DocumentsClient;
-import dmax.demo.documents.models.FileUploadResponseMessage;
+import dmax.demo.generatedfilesstorage.feign.GeneratedFilesStorageClient;
+import dmax.demo.generatedfilesstorage.models.FileUploadResponseMessage;
 import dmax.demo.imagegenerationmanager.kafka.events.GenerateImageRequestEvent;
 import dmax.demo.imagegenerator.events.ImageGenerationFinishedEvent;
 import dmax.demo.imagegenerator.kafka.testconfig.TestGenerateImageRequestEventProducer;
@@ -39,7 +39,7 @@ public class GenerateImageRequestEventConsumerTest {
   TextToImageConverter textToImageConverterMock;
 
   @MockBean
-  private DocumentsClient documentsClientMock;
+  private GeneratedFilesStorageClient generatedFilesStorageClientMock;
 
   @Autowired
   TestGenerateImageRequestEventProducer testProducer;
@@ -64,7 +64,7 @@ public class GenerateImageRequestEventConsumerTest {
         .thenReturn(file);
     doNothing().when(textToImageConverterMock).cleanupTempFile(any(UUID.class), any(ServletContext.class));
     FileUploadResponseMessage fileUploadResponseMessage = new FileUploadResponseMessage("ok");
-    when(documentsClientMock.uploadFile(any(URI.class), any(MultipartFile.class), anyString()))
+    when(generatedFilesStorageClientMock.uploadFile(any(URI.class), any(MultipartFile.class), anyString()))
         .thenReturn(fileUploadResponseMessage);
 
     GenerateImageRequestEvent event = new GenerateImageRequestEvent(UUID.randomUUID(), generateImageCommand);

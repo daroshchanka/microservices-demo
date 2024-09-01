@@ -14,7 +14,7 @@ scrape_configs:
     metrics_path: '/actuator/prometheus'
     static_configs:
       - targets: ['dev-cluster:8082']
-  - job_name: 'documents'
+  - job_name: 'generated-files-storage'
     metrics_path: '/actuator/prometheus'
     static_configs:
       - targets: ['dev-cluster:8083']

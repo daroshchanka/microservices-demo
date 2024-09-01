@@ -1,7 +1,7 @@
 package dmax.demo.imagegenerator.kafka.consumers;
 
-import dmax.demo.documents.feign.DocumentsClient;
-import dmax.demo.documents.feign.JavaFileToMultipartFile;
+import dmax.demo.generatedfilesstorage.feign.GeneratedFilesStorageClient;
+import dmax.demo.generatedfilesstorage.feign.JavaFileToMultipartFile;
 import dmax.demo.imagegenerationmanager.kafka.events.GenerateImageRequestEvent;
 import dmax.demo.imagegenerator.events.ImageGenerationFinishedEvent;
 import dmax.demo.imagegenerator.kafka.KafkaTopicConfiguration;
@@ -34,10 +34,10 @@ public class GenerateImageRequestEventConsumer {
   private ImageGenerationFinishedEventProducer imageGenerationFinishedEventProducer;
 
   @Autowired
-  private DocumentsClient documentsClient;
+  private GeneratedFilesStorageClient generatedFilesStorageClient;
 
-  @Value("http://${integration.documents.server}")
-  private String documentsIntegrationUrl;
+  @Value("http://${integration.generated-files-storage.server}")
+  private String generatedFilesStorageIntegrationUrl;
 
   private static final String TOPIC = KafkaTopicConfiguration.IMAGE_GENERATOR_GENERATION_REQUESTS_EVENTS_TOPIC;
   @KafkaListener(
@@ -50,8 +50,8 @@ public class GenerateImageRequestEventConsumer {
       UUID processId = event.value().getProcessId();
       resultEvent.setProcessId(processId);
       UUID fileId = UUID.randomUUID();
-      documentsClient.uploadFile(
-          URI.create(documentsIntegrationUrl),
+      generatedFilesStorageClient.uploadFile(
+          URI.create(generatedFilesStorageIntegrationUrl),
           new JavaFileToMultipartFile(textToImageConverter.convert(event.value().getCommand(), fileId, context)),
           fileId.toString()
       );

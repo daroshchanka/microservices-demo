@@ -6,7 +6,7 @@ target/
 ### Project-specific ###
 app-template/
 
-infrastructure/envs/dev/apps/documents/filestorage/
+infrastructure/envs/dev/apps/generated-files-storage/filestorage/
 infrastructure/envs/ci/gitlab/master/logs/
 infrastructure/envs/ci/gitlab/master/data/
 infrastructure/envs/ci/gitlab/master/config/

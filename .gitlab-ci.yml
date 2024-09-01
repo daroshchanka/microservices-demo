@@ -30,4 +30,4 @@ top-level-job:
 include:
   - local: '/image-generation-manager/.gitlab-ci.yml'
   - local: '/image-generator/.gitlab-ci.yml'
-  - local: '/documents/.gitlab-ci.yml'
+  - local: '/generated-files-storage/.gitlab-ci.yml'
