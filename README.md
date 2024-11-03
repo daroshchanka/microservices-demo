@@ -32,28 +32,6 @@ _Kafka UI_ used to view/manage kafka cluster.
 __All infrastructure configuration and microservices env defined in docker-compose 
 files and included as a part of this repo__. But it was designed for local dev environment, not production.
 
-#### Disclaimer
-This project has been implemented in self-education purposes by the person who never developed microservices before.
-
-This project has been implemented within the limited timeframe 2-3 weeks I've spent ~ 16hours per week, 
-so the whole development and infra setup took ~ 40hours.
-
-There was local bare metal CPU/RAM limitations: 8CPU + 32GB RAM, cloud resources wasn't used.
-
-_Known missing things_:
-    
-- Roles and permissions, Keycloack + spring-security
-- REST/Kafka contracts could be distributed not as .jar modules, but as json/yaml
-- DELETE endpoints were not implemented
-- API Gateway could be added
-- Some simple Web UI could be added
-- More advanced CI pipelines with handling release versioning, release version incrementation per service, 
-running released app on dev env + run more e2e system tests
-- More automated tests might be added, especially e2e system tests
-- Tracing might be improved to link rest->kafka and show the whole flow
-- Kubernetes could be utilized instead of docker-compose
-- Overall infrastructure was designed for local dev environment, not production
-
 
 ### Project details
 
@@ -276,3 +254,26 @@ http://dev-cluster:3000/explore?schemaVersion=1&panes=%7B%22cbg%22:%7B%22datasou
 ![kafka-ui-topics.png](.assets/kafka-ui-topics.png)
 
 ![kafka-ui-event.png](.assets/kafka-ui-event.png)
+
+
+### Disclaimer
+This project has been implemented in self-education purposes by the person who never developed microservices before.
+
+This project has been implemented within the limited timeframe 2-3 weeks I've spent ~ 16hours per week,
+so the whole development and infra setup took ~ 40hours.
+
+There was local bare metal CPU/RAM limitations: 8CPU + 32GB RAM, cloud resources wasn't used.
+
+_Known missing things_:
+
+- Roles and permissions, Keycloack + spring-security
+- REST/Kafka contracts could be distributed not as .jar modules, but as json/yaml
+- DELETE endpoints were not implemented
+- API Gateway could be added
+- Some simple Web UI could be added
+- More advanced CI pipelines with handling release versioning, release version incrementation per service,
+  running released app on dev env + run more e2e system tests
+- More automated tests might be added, especially e2e system tests
+- Tracing might be improved to link rest->kafka and show the whole flow
+- Kubernetes could be utilized instead of docker-compose
+- Overall infrastructure was designed for local dev environment, not production
