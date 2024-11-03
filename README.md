@@ -43,6 +43,10 @@ There was local bare metal CPU/RAM limitations: 8CPU + 32GB RAM, cloud resources
 _Known missing things_:
     
 - Roles and permissions, Keycloack + spring-security
+- REST/Kafka contracts could be distributed not as .jar modules, but as json/yaml
+- DELETE endpoints were not implemented
+- API Gateway could be added
+- Some simple Web UI could be added
 - More advanced CI pipelines with handling release versioning, release version incrementation per service, 
 running released app on dev env + run more e2e system tests
 - More automated tests might be added, especially e2e system tests
