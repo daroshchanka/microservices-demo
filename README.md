@@ -35,7 +35,7 @@ files and included as a part of this repo__. But it was designed for local dev e
 #### Disclaimer
 This project has been implemented in self-education purposes by the person who never developed microservices before.
 
-This project has been implemented withing the limited timeframe 2-3 weeks I've spent ~ 16hours per week, 
+This project has been implemented within the limited timeframe 2-3 weeks I've spent ~ 16hours per week, 
 so the whole development and infra setup took ~ 40hours.
 
 There was local bare metal CPU/RAM limitations: 8CPU + 32GB RAM, cloud resources wasn't used.
